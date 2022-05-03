@@ -1,0 +1,7 @@
+Este projeto está em laravel 5.2
+
+Os videos estão em: https://www.youtube.com/playlist?list=PLVSNL1PHDWvTch1r8uTSluw9SkzSA9cDJ
+
+aula 4 - auth laravel - sistema de scaffolding
+    php artisan make:auth
+    precisou alterar o namespace do User na model User, no AuthController e no config/auth.php pq usei as models dentro da pasta models
