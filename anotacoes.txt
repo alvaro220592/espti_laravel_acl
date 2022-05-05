@@ -5,3 +5,18 @@ Os videos estão em: https://www.youtube.com/playlist?list=PLVSNL1PHDWvTch1r8uTS
 aula 4 - auth laravel - sistema de scaffolding
     php artisan make:auth
     precisou alterar o namespace do User na model User, no AuthController e no config/auth.php pq usei as models dentro da pasta models
+
+aula 5 cadastrando e listando posts
+
+aula 6 - iniciando acl com laravel
+    onde define os acl é no authServiceProvider, função boot
+
+aula 7 - criando políticas
+    serve pra não ter q colocar todos os define num arquivo só, fazendo ele ficar extenso.
+    php artisan:make policy PostPolicy
+        isso vai criar um arquivo dentro de app/policies. No laravel 8 essa pasta nao existe a menos que se crie uma policy
+
+        Depois de criar a policy, é preciso ir ao authServiceProvider e registrar a policy criada no array policies
+        ficaria assim: $policies = [Post::class => PostPolicy::class]; e tem que importar a model Post e a policy PostPolicy.
+        Agora os define de Post serão colocados(de forma diferente) no PostPolicy dentro de um método criado(no meu caso "updatePost()") ao invés de no authServiceProvider.
+        Agora tanto na view(na parte do can), quanto no controller caso use Gate::deny, se coloca o mesmo nome do método criado no PostPolicy: @can('updatePost', $post), ou  if(Gate::denies('updatePost', $post))
