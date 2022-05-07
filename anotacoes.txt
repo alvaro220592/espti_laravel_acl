@@ -11,7 +11,7 @@ aula 5 cadastrando e listando posts
 aula 6 - iniciando acl com laravel
     onde define os acl é no authServiceProvider, função boot
 
-aula 7 - criando políticas
+aula 8 - criando políticas
     serve pra não ter q colocar todos os define num arquivo só, fazendo ele ficar extenso.
     php artisan:make policy PostPolicy
         isso vai criar um arquivo dentro de app/policies. No laravel 8 essa pasta nao existe a menos que se crie uma policy
@@ -20,3 +20,9 @@ aula 7 - criando políticas
         ficaria assim: $policies = [Post::class => PostPolicy::class]; e tem que importar a model Post e a policy PostPolicy.
         Agora os define de Post serão colocados(de forma diferente) no PostPolicy dentro de um método criado(no meu caso "updatePost()") ao invés de no authServiceProvider.
         Agora tanto na view(na parte do can), quanto no controller caso use Gate::deny, se coloca o mesmo nome do método criado no PostPolicy: @can('updatePost', $post), ou  if(Gate::denies('updatePost', $post))
+
+aula 9 - criando migrations ACL FOR LARGE SYSTEMS - aquelas coisas de roles, permissions etc
+    php artisan make:model models/Role -m
+    php artisan make:model models/Permission -m
+    A tabela associativa role_user foi criada dentro da migration de roles e tambem sua função 'down' no mesmo arquivo. Esta(roles) tem que ser criada primeiro pq a tabela associativa dela é associada com uma que já existe(users). A de permissions é criada depois pq sua tabela associativa é associada à roles que é criada agora.
+    A tabela associativa permission_role foi criada dentro da migration de permission e tambem sua função 'down' no mesmo arquivo
