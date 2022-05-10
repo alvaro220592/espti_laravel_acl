@@ -26,3 +26,15 @@ aula 9 - criando migrations ACL FOR LARGE SYSTEMS - aquelas coisas de roles, per
     php artisan make:model models/Permission -m
     A tabela associativa role_user foi criada dentro da migration de roles e tambem sua função 'down' no mesmo arquivo. Esta(roles) tem que ser criada primeiro pq a tabela associativa dela é associada com uma que já existe(users). A de permissions é criada depois pq sua tabela associativa é associada à roles que é criada agora.
     A tabela associativa permission_role foi criada dentro da migration de permission e tambem sua função 'down' no mesmo arquivo
+
+aula 10 - definindo habilidades de permissao dinamicamente
+    foi feito um insert de 3 roles: admin, manager e editor
+    foi feito um insert de 3 permissions: view_post, edit_post e delete_post
+    foi feito insert em permission_rule pra definir o que o adm vai poder fazer, o manager, etc;
+    foi feito insert na role_user pra definir quem é o q e tal.
+
+    Em authServiceProvider, foi deletada a linha q chama a policy PostPolicy, pois não vai trabalhar mais com isso. No mesmo arquivo, foi dado um 'use' na model de permissões. Na model Permission foi criada uma função que retorna todas as roles vinculadas a uma determinada permissão atraves de um belongsToMany.
+    No authServiceProvider foi criada uma lógica lá em boot() pra pegar as permissões.
+    A função hasPermission() na função boot() teve que ser criada na model User.
+    Na model user tbm foi criada a função hasAnyRole().
+    na model user tbm foi criada a função roles pra ver q perfis estão associados ao usuário logado e esa função foi feita com um belongsToMany
