@@ -15,11 +15,21 @@
     </div> --}}
     
     @forelse ($posts as $post)
-        @can('delete_post', $post)
+        @can('view_post', $post)
             <h4><b>Título: </b>{{ $post->title }}</h4>
             <p><b>Descrição: </b>{{ $post->description }}</p>
             <p><b>Autor: {{ $post->user->name }}</b></p>
             <p><a href="{{ route('post_update', $post->id) }}">Editar</a></p>
+        @endcan
+
+        {{--
+            A permissão abaixo nem existe no banco de dados. 
+            É pra testar se fica visível caso o usuário seja admin, 
+            graças ao $gate->before dentro da função boot bo authServiceProvider
+            que garante acesso ao usuário cuja role seja admin
+        --}}
+        @can('teste_super_user', $post)
+            <p>Teste super user</p>
         @endcan
         <hr>
     @empty

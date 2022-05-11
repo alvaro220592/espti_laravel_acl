@@ -40,5 +40,15 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->hasPermission($permission);
             });
         }
+
+        /* Esse 'before' faz essa verificação ser feita antes das acima e retorna true
+         * se o usuário tem uma permissão 'admin', até mesmo se a permissão descrita no
+         * can nem estiver cadastrada no banco de dados
+         */
+        $gate->before(function(User $user){
+            if($user->hasAnyRole('admin')){
+                return true;
+            }
+        });
     }
 }
